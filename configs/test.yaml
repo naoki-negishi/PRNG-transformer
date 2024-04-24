@@ -1,0 +1,30 @@
+data:
+  name: "toy_data"
+  train: "data/test/lcg_a=33b=0m=251.jsonl"
+  valid: "data/test/lcg_a=33b=0m=251.jsonl"
+  maximum_number: 250
+  max_seq_len: 128
+model:
+  name: "prng_bert"
+  embed_dim: 128
+  pos_dropout_rate: 0.1
+  transformer_dropout_rate: 0.1
+  layer_norm_eps: 1.0e-12
+  num_hidden_layers: 2
+  num_attention_heads: 4
+train:
+  epoch: 1000
+  train_batch_size: 16
+  valid_batch_size: 32
+  seed: 42
+  optimizer:
+    name: "AdamW"
+    lr: 2.0e-5
+    weight_decay: 0.01
+  scheduler: "cosine_schedule_with_warmup"
+  loss: "nll_loss"
+  metric: "accuracy"
+output_dir: "../outputs/toy_data"
+wandb:
+  project: "prng-bert"
+  run_name: "toy_data"

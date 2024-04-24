@@ -1,0 +1,24 @@
+services:
+  nlp:
+    build: .
+    volumes:
+      - type: bind
+        source: "/work01"
+        target: "/work01"
+      - type: bind
+        source: "${HOME}/nlp-docker"
+        target: "/workspace/nlp-docker"
+      - type: bind
+        source: "${HOME}/.zshrc"
+        target: "/workspace/.zshrc"
+    tty: true
+    shm_size: '2gb'
+    environment:
+      HOST_USERNAME: ${HOST_USERNAME}
+      PYTHONPATH=/workspace
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              capabilities: [gpu]
